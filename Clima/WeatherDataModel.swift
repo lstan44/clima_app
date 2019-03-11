@@ -18,37 +18,37 @@ class WeatherDataModel {
     switch (conditionId) {
     
         case 0...300 :
-            return "tstorm1"
+            return getStorm()
         
         case 301...500 :
-            return "light_rain"
+            return getLightRain()
         
         case 501...600 :
-            return "shower3"
+            return getHeavyRain()
         
         case 601...700 :
-            return "snow4"
+            return getSnow()
         
         case 701...771 :
-            return "fog"
+            return getFog()
         
         case 772...799 :
-            return "tstorm3"
+            return getStorm()
         
         case 800 :
-            return "sunny"
+            return getSunny()
         
         case 801...804 :
-            return "cloudy2"
+            return getCloudy()
         
         case 900...903, 905...1000  :
-            return "tstorm3"
+            return getStorm()
         
         case 903 :
-            return "snow5"
+            return getSnow()
         
         case 904 :
-            return "sunny"
+            return getSunny()
         
         default :
             return "dunno"
@@ -72,4 +72,42 @@ class WeatherDataModel {
         self.conditionId = id
     }
     
+    
+    func getCloudy()->String{
+        let number = Int.random(in: 1 ... 6)
+        return "cloudy\(number)"
+    }
+    func getFog()->String{
+        let number = Int.random(in: 1 ... 5)
+        return "fog\(number)"
+    }
+    
+    func getHeavyRain()->String{
+        let number = Int.random(in: 1 ... 5)
+        return "heavyrain\(number)"
+    }
+    
+    func getLightRain()->String{
+        let number = Int.random(in: 1 ... 8)
+        return "lightrain\(number)"
+    }
+    func getOverCast()->String{
+        let number = Int.random(in: 1 ... 3)
+        return "overcast\(number)"
+    }
+    
+    func getSnow()->String{
+        let number = Int.random(in: 1 ... 3)
+        return "snow\(number)"
+    }
+    
+    func getStorm()->String{
+        let number = Int.random(in: 1 ... 7)
+        return "storm\(number)"
+    }
+    
+    func getSunny()->String{
+        let number = Int.random(in: 1 ... 4)
+        return "sunny\(number)"
+    }
 }

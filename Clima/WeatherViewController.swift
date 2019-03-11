@@ -96,7 +96,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         let city = weatherDataModelObject.city
         let id = weatherDataModelObject.conditionId
         
-        weatherIcon.image = UIImage(named: weatherDataModelObject.updateWeatherIcon(condition: id))
+        bgImage.image = UIImage(named: weatherDataModelObject.updateWeatherIcon(condition: id))
         temperatureLabel.text = String(temp)
         cityLabel.text = city
     }
