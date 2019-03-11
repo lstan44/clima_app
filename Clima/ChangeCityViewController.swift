@@ -10,6 +10,7 @@ import UIKit
 class ChangeCityViewController: UIViewController {
     
     //Declare the delegate variable here:
+    var newCity = ""
 
     //This is the pre-linked IBOutlets to the text field:
     @IBOutlet weak var changeCityTextField: UITextField!
@@ -18,7 +19,7 @@ class ChangeCityViewController: UIViewController {
     //This is the IBAction that gets called when the user taps on the "Get Weather" button:
     @IBAction func getWeatherPressed(_ sender: AnyObject) {
         
-        
+        newCity = changeCityTextField.text!
         //1 Get the city name the user entered in the text field
     
         

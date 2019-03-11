@@ -57,19 +57,19 @@ class WeatherDataModel {
     }
     
     func setTemp(temp:Int){
-        
+        self.temperature = temp
     }
     
     func setCity(c:String){
-        
+        self.city = c
     }
     
     func setConditionDes(desc:String){
-        
+        self.conditionDes = desc
     }
     
     func setConditionId(id:Int){
-        
+        self.conditionId = id
     }
     
 }

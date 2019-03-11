@@ -18,13 +18,12 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     let weatherDataModelObject = WeatherDataModel()
     
-
     
     //Pre-linked IBOutlets
     @IBOutlet weak var weatherIcon: UIImageView!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
-
+    @IBOutlet weak var bgImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,11 +34,8 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
         
         locationManager.startUpdatingLocation()
-    
-        let id = weatherDataModelObject.conditionId
-        print(id)
-        cityLabel.text = weatherDataModelObject.city
-        weatherIcon.image = UIImage(named: weatherDataModelObject.updateWeatherIcon(condition: id))
+        updateUi()
+       
     }
     
     
@@ -51,10 +47,11 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         Alamofire.request(url, method: .get, parameters: parameters).responseJSON{
             response in
             if response.result.isSuccess{
-            //  print(response.result.value)
+                print(response.result.value)
                 
                 let weatherJSON: JSON = JSON(response.result.value!)
                 self.updateWeatherData(json: weatherJSON)
+                self.updateUi()
                 
             }
             else{
@@ -78,13 +75,11 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         let tempResult = json["main"]["temp"].double
         let cityResult = json["name"].stringValue
         let conditionResult = json["weather"]["description"].stringValue
-        
-        //let cId = json["weather"][]["id"].int
-        //print(cId)
-        weatherDataModelObject.setTemp(temp: Int(tempResult! - 273.15))
+        let weatherId = Int(json["weather"][0]["id"].stringValue)
+        weatherDataModelObject.setTemp(temp: Int((((tempResult! - 273.15)*9)/5)+32))
         weatherDataModelObject.setCity(c: cityResult)
         weatherDataModelObject.setConditionDes(desc: conditionResult)
-        weatherDataModelObject.setConditionId(id: 500)
+        weatherDataModelObject.setConditionId(id: weatherId!)
     
     }
     
@@ -96,7 +91,15 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     
     //Write the updateUIWithWeatherData method here:
     
-    
+    func updateUi(){
+        let temp = weatherDataModelObject.temperature
+        let city = weatherDataModelObject.city
+        let id = weatherDataModelObject.conditionId
+        
+        weatherIcon.image = UIImage(named: weatherDataModelObject.updateWeatherIcon(condition: id))
+        temperatureLabel.text = String(temp)
+        cityLabel.text = city
+    }
     
     
     
